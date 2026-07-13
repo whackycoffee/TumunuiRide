@@ -24,9 +24,12 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Unzip project
-        run: unzip -o TumunuiRide-Android-Prototype.zip
-
+           - name: Unzip and patch project
+        run: |
+          unzip -o TumunuiRide-Android-Prototype.zip
+          sed -i 's/import androidx.core.app.\*;/import androidx.core.app.*; import androidx.core.content.ContextCompat;/' TumunuiRide/app/src/main/java/nz/co/tumunuiride/MainActivity.java
+          sed -i 's/Locale\.NZ/Locale.forLanguageTag("en-NZ")/g' TumunuiRide/app/src/main/java/nz/co/tumunuiride/MainActivity.java
+          sed -i 's/Locale\.NZ/Locale.forLanguageTag("en-NZ")/g' TumunuiRide/app/src/main/java/nz/co/tumunuiride/RideService.java
       - name: Build APK
         working-directory: TumunuiRide
         run: gradle -Pandroid.useAndroidX=true assembleDebug
