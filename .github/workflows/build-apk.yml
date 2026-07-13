@@ -29,7 +29,7 @@ jobs:
 
       - name: Build APK
         working-directory: TumunuiRide
-        run: gradle assembleDebug
+        run: gradle -Pandroid.useAndroidX=true assembleDebug
 
       - name: Save APK
         uses: actions/upload-artifact@v4
